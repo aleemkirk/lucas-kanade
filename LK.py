@@ -7,6 +7,7 @@ This Python program is the supporting library for Q1 and Q2
 
 import numpy as np
 import cv2
+import math
 
 # This sets the program to ignore a divide error which does not affect the outcome of the program
 np.seterr(divide='ignore', invalid='ignore')
@@ -42,11 +43,11 @@ def compute_flow_map(u, v, gran=8):
             if y % gran == 0 and x % gran == 0:
                 dx = 10 * int(u[y, x])
                 dy = 10 * int(v[y, x])
-                length = (dx**2 + dy**2)**(0.5)
+                length = float(math.sqrt(math.pow(dx, 2) + math.pow(dy, 2)))
 
-                if abs(dx) > 0 or abs(dy) > 0:
+                if ((abs(dx) > 0) or (abs(dy) > 0)):
                     try:
-                        cv2.arrowedLine(flow_map, (x, y), (x + 100*dx/length, y + 100*dy/length), 255, 1)
+                        cv2.arrowedLine(flow_map, (x, y), (x + 10*int(dx/length), y + 10*int(dy/length)), 255, 1)
                     except:
                         cv2.arrowedLine(flow_map, (x, y), (x, y), 255, 1)
 
