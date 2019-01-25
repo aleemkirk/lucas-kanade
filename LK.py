@@ -44,7 +44,10 @@ def compute_flow_map(u, v, gran=8):
                 dy = 10 * int(v[y, x])
 
                 if dx > 0 or dy > 0:
-                    cv2.arrowedLine(flow_map, (x, y), (x + dx, y + dy), 255, 1)
+                    try:
+                        cv2.arrowedLine(flow_map, (x, y), (x + dx, y + dy), 255, 1)
+                    except:
+                        cv2.arrowedLine(flow_map, (x, y), (x, y), 255, 1)
 
     return flow_map
 
